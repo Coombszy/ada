@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ada.api", "ada.api\ada.api.csproj", "{0E0066FE-6E78-425C-BB8A-FC5552B4991D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ada.rest", "ada.rest\ada.rest.csproj", "{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{0E0066FE-6E78-425C-BB8A-FC5552B4991D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E0066FE-6E78-425C-BB8A-FC5552B4991D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E0066FE-6E78-425C-BB8A-FC5552B4991D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,7 +8,7 @@ namespace ada.api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class AdaController : ControllerBase
     {
         // GET api/values
         [HttpGet]
