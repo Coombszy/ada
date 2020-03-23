@@ -43,7 +43,7 @@ namespace ada.rest
 
             // close the output stream
             output.Close();
-            Debugger.Write($"Worker Thread closing ID:{Thread.CurrentThread.ManagedThreadId}");
+            Debugger.Write($"Worker Thread Closing ID:{Thread.CurrentThread.ManagedThreadId}");
         }
     }
 }
