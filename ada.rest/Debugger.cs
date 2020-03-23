@@ -71,7 +71,7 @@ namespace ada.rest
         /// <summary>
         /// Returns timestamp for console log
         /// </summary>
-        /// <returns></returns>
+        /// <returns>[h:MM:SS AM/PM | DD Month YYYY]</returns>
         private static string getTimeStamp()
         {
             return "[" + System.DateTime.UtcNow.ToLongTimeString() + " | " + System.DateTime.UtcNow.ToLongDateString() + "]:";
