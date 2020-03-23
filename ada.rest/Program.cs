@@ -8,7 +8,7 @@ namespace ada.rest
         static void Main(string[] args)
         {
             Debugger.Write("TEST");
-            Debugger.enabledDebug();
+            Debugger.enableDebug();
             Debugger.Write("1TEST1", 1);
             Debugger.Write("1TEST2", 2);
             Debugger.Write("1TEST3", 3);

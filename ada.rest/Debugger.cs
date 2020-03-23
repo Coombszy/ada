@@ -10,7 +10,7 @@ namespace ada.rest
         /// <summary>
         /// Disable and enable debuggins
         /// </summary>
-        public static void enabledDebug()
+        public static void enableDebug()
         {
             Debugger.debugging = true;
         }
