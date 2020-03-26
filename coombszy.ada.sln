@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ada.rest", "ada.rest\ada.rest.csproj", "{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ada.synthesizer", "ada.synthesizer\ada.synthesizer.csproj", "{E7E05A0B-0646-4EAE-9E65-C6661D41CFB2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C6DF524F-6E28-49B4-AE53-6B87FB5BBF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E7E05A0B-0646-4EAE-9E65-C6661D41CFB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E7E05A0B-0646-4EAE-9E65-C6661D41CFB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E7E05A0B-0646-4EAE-9E65-C6661D41CFB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E7E05A0B-0646-4EAE-9E65-C6661D41CFB2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
