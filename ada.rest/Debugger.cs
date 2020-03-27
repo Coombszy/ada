@@ -69,6 +69,16 @@ namespace ada.rest
         }
 
         /// <summary>
+        /// Close the application with code 1
+        /// </summary>
+        public static void AppCrash()
+        {
+            Console.WriteLine("PRESS ENTER TO CLOSE...");
+            Console.ReadLine();
+            Environment.Exit(1);
+        }
+
+        /// <summary>
         /// Returns timestamp for console log
         /// </summary>
         /// <returns>[h:MM:SS AM/PM | DD Month YYYY]</returns>

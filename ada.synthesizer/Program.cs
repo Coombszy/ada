@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
 using System.Threading;
 
@@ -15,6 +16,17 @@ namespace ada.synthesizer
             #endregion
 
             Debugger.Write("ada.synthesizer MAIN() ENTRY", 5);
+
+            // Define system environment var for google auth
+            if (!File.Exists("keys/coombszyapi.json"))
+            {
+                Debugger.Write("Failed to load api key, NAME=coombszyapi.json", 1);
+                Debugger.AppCrash();
+            }
+            else
+            {
+                System.Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", "keys/coombszyapi.json");
+            }
 
             // Main while loop conditional
             bool running = true;
