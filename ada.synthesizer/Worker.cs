@@ -18,24 +18,24 @@ namespace ada.synthesizer
             // Get context
             HttpListenerRequest request = context.Request;
 
-            string requestBody;
+            string requestContents;
             using (Stream receiveStream = request.InputStream)
             {
                 using (StreamReader readStream = new StreamReader(receiveStream, Encoding.UTF8))
                 {
-                    requestBody = readStream.ReadToEnd();
+                    requestContents = readStream.ReadToEnd();
                 }
             }
             // Debug outputs
             Debugger.Write($"Received request for {request.Url}", 5);
             Debugger.Write($"Request headers: {request.Headers}", 5);
-            Debugger.Write($"Request body: \n{requestBody}", 5);
+            Debugger.Write($"Request body: \n{requestContents}", 5);
 
             // Obtain a response object
             HttpListenerResponse response = context.Response;
 
             // Get the Json object from the request
-            JObject requestJson = JObject.Parse(requestBody);
+            JObject requestJson = JObject.Parse(requestContents);
             JToken textToConvertJToken;
 
             // Check if the correct body is present
