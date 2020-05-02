@@ -70,7 +70,9 @@ namespace ada.rest
             byte[] buffer = Encoding.UTF8.GetBytes(toSend.ToString());
 
             // Get a response stream and write the response to it
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.ContentLength64 = buffer.Length;
+            response.StatusCode = 200;
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
 

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script>
+    
+$(document).ready(function(){
+    console.log("DOC LOAD");
+    $("button").click(function(){
+        $.ajax({
+            type: "POST",
+            crossOrigin: true,
+            url: "http://localhost:40401",
+            data: JSON.stringify({"adaQuery": "hello world"}),
+            success: function(data) {
+                console.log("PASS");
+                console.log(data);
+            },
+            error: function(xhr, status, error) {
+                console.log("FAIL");
+                console.log(xhr);
+                console.log(status);
+                console.log(error);
+            }
+        });
+    });
+
+});
+
+</script>
+</head>
+<body>
+
+<button>Send Data</button>
+
+</body>
+</html>
