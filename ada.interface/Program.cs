@@ -19,7 +19,7 @@ namespace ada.interface_
             bool running = true;
 
             // URI prefixes are required
-            var prefixes = new List<string>() { "http://*:40403/" };
+            var prefixes = new List<string>() { "http://*:40403/QUEUE/" };
 
             // Create a listener
             HttpListener listener = new HttpListener();

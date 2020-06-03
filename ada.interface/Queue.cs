@@ -13,7 +13,7 @@ namespace ada.interface_
         /// Pushes message to queue. if the target does not exist, add new target and push
         /// </summary>
         /// <param name="newMessage"></param>
-        public static void pushMessage(Message newMessage)
+        public static bool pushMessage(Message newMessage)
         {
             // Debug write message output
             Debugger.Write($"Message target: {newMessage.getTarget()}", 5);
@@ -34,10 +34,12 @@ namespace ada.interface_
                 newMessageList.Add(newMessage);
                 queue[newMessage.getTarget()] = newMessageList;
                 Debugger.Write($"New message was added successfully!", 5);
+                return true;
             }
             catch (Exception e)
             {
                 Debugger.Write($"Error pusing to queue: {e.ToString()}", 1);
+                return false;
             }
         }
     }

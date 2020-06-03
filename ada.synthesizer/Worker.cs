@@ -87,13 +87,16 @@ namespace ada.synthesizer
         /// </summary>
         /// <param name="toSend"></param>
         /// <param name="response"></param>
-        private void sendResponse(JObject toSend, HttpListenerResponse response)
+        private void sendResponse(JObject toSend, HttpListenerResponse response, int status)
         {
             // Construct a response
             byte[] buffer = Encoding.UTF8.GetBytes(toSend.ToString());
 
             // Get a response stream and write the response to it
+            response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.ContentLength64 = buffer.Length;
+            response.StatusCode = status;
+            response.ContentType = "application/json";
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
 
@@ -102,17 +105,38 @@ namespace ada.synthesizer
         }
 
         /// <summary>
-        /// Sends a Json object containing a fail response
+        /// Calls sendResponse method with status code 200
+        /// </summary>
+        /// <param name="toSend"></param>
+        /// <param name="response"></param>
+        private void sendResponse(JObject toSend, HttpListenerResponse response)
+        {
+            sendResponse(toSend, response, 200);
+        }
+
+        /// <summary>
+        /// Sends a Json object containing a fail response and source
         /// </summary>
         /// <param name="failReason"></param>
-        /// <param name="response"></param>
-        private void sendFail(string failReason, HttpListenerResponse response)
+        /// <param name="responseObject"></param>
+        private void sendFail(string failSource, string failReason, HttpListenerResponse responseObject)
         {
             JObject failResponse = JObject.FromObject(new
             {
-                voiceResponseStatus = $"FAIL: {failReason}"
+                adaSynthesizerSource = $"{failSource}",
+                adaSynthesizerResponse = $"{failReason}"
             });
-            sendResponse(failResponse, response);
+            sendResponse(failResponse, responseObject, 400);
+        }
+
+        /// <summary>
+        /// Sends a Json object containing a fail response with generic source
+        /// </summary>
+        /// <param name="failReason"></param>
+        /// <param name="responseObject"></param>
+        private void sendFail(string failReason, HttpListenerResponse responseObject)
+        {
+            sendFail("GENERIC", failReason, responseObject);
         }
 
         /// <summary>
