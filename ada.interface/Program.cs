@@ -15,6 +15,8 @@ namespace ada.interface_
             Debugger.setLevel(5);
             #endregion
 
+            Debugger.Write("ada.interface MAIN() ENTRY", 5);
+
             // Main while loop conditional
             bool running = true;
 
