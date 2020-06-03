@@ -52,7 +52,6 @@ namespace ada.rest
             {
                 Debugger.Write($"Request contains adaQuery key. Value : '{adaQuery.ToString()}'", 5);
                 sendResponse(convertSynthJson(VoiceSynth.getVoiceAudio(adaQuery.ToString())), response);
-                //sendFail("DEBUG TESTING!", response);
             }
 
             // THIS CODE IS TO BE REMOVED WHEN MEMORY UNIT IS COMPLETE =====================================================
@@ -76,6 +75,7 @@ namespace ada.rest
             response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.ContentLength64 = buffer.Length;
             response.StatusCode = status;
+            response.ContentType = "application/json";
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
 

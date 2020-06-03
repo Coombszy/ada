@@ -76,7 +76,7 @@ namespace ada.synthesizer
             JObject response = JObject.FromObject(new
             {
                 voiceResponseStatus = "PASS",
-                voiceResponseBytes = Encoding.UTF8.GetString(voiceStream)
+                voiceResponseBytes = Convert.ToBase64String(voiceStream)
             });
 
             return response;
@@ -132,7 +132,7 @@ namespace ada.synthesizer
                 Voice = new VoiceSelectionParams
                 {
                     LanguageCode = "en-US",
-                    Name = "en-US-Wavenet-F"//,
+                    Name = "en-US-Wavenet-F"
                 },
                 AudioConfig = new AudioConfig
                 {
