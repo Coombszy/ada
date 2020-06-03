@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Text;
 using Newtonsoft.Json.Linq;
+using System.Buffers.Text;
 
 namespace ada.rest
 {
@@ -51,6 +52,7 @@ namespace ada.rest
             {
                 Debugger.Write($"Request contains adaQuery key. Value : '{adaQuery.ToString()}'", 5);
                 sendResponse(convertSynthJson(VoiceSynth.getVoiceAudio(adaQuery.ToString())), response);
+                //sendFail("DEBUG TESTING!", response);
             }
 
             // THIS CODE IS TO BE REMOVED WHEN MEMORY UNIT IS COMPLETE =====================================================
@@ -59,12 +61,13 @@ namespace ada.rest
             Debugger.Write($"Worker Thread Closing ID:{Thread.CurrentThread.ManagedThreadId}");
         }
 
+
         /// <summary>
         /// Sends a Json object as a response to the http request
         /// </summary>
         /// <param name="toSend"></param>
         /// <param name="response"></param>
-        private void sendResponse(JObject toSend, HttpListenerResponse response)
+        private void sendResponse(JObject toSend, HttpListenerResponse response, int status)
         {
             // Construct a response
             byte[] buffer = Encoding.UTF8.GetBytes(toSend.ToString());
@@ -72,12 +75,22 @@ namespace ada.rest
             // Get a response stream and write the response to it
             response.Headers.Add("Access-Control-Allow-Origin", "*");
             response.ContentLength64 = buffer.Length;
-            response.StatusCode = 200;
+            response.StatusCode = status;
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
 
             // close the output stream
             output.Close();
+        }
+
+        /// <summary>
+        /// Calls sendResponse method with status code 200
+        /// </summary>
+        /// <param name="toSend"></param>
+        /// <param name="response"></param>
+        private void sendResponse(JObject toSend, HttpListenerResponse response)
+        {
+            sendResponse(toSend, response, 200);
         }
 
         /// <summary>
@@ -91,7 +104,7 @@ namespace ada.rest
             {
                 adaQueryStatus = $"FAIL: {failReason}"
             });
-            sendResponse(failResponse, response);
+            sendResponse(failResponse, response, 400);
         }
 
         /// <summary>

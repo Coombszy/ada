@@ -76,7 +76,7 @@ namespace ada.synthesizer
             JObject response = JObject.FromObject(new
             {
                 voiceResponseStatus = "PASS",
-                voiceResponseBytes = voiceStream
+                voiceResponseBytes = Encoding.UTF8.GetString(voiceStream)
             });
 
             return response;
