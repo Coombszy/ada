@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Text;
 using Newtonsoft.Json.Linq;
-using System.Buffers.Text;
+using Newtonsoft.Json;
 
 namespace ada.interface_
 {
@@ -93,6 +93,83 @@ namespace ada.interface_
                 else
                 {
                     sendFail("QUEUE", "Failed to push to queue", responseObject);
+                }
+            }
+            // If queue request is requesting messages
+            else if (requestJson.GetValue("adaQueueInstruction").ToString() == "REQUEST")
+            {
+                // Add addition required keys and check they are present
+                requiredKeys.AddRange(new List<string>() { "adaQueueMessageTarget" });
+                if (!containsCorrectKeys(requiredKeys, requestJson))
+                {
+                    sendFail("QUEUE", $"Json did not contain required keys for REQUEST intruction to QUEUE: {string.Join(',', requiredKeys.ToArray())}", responseObject);
+                    return;
+                }
+
+                // Get message from queue for target
+                Message returnMessage = Queue.getNextMessage(requestJson.GetValue("adaQueueMessageTarget").ToString());
+
+                // Return message back
+                if (returnMessage != null)
+                {
+                    JObject response = JObject.FromObject(new
+                    {
+                        adaQueueMessageContent = returnMessage.getContent()
+
+                    });
+                    sendResponse(response, responseObject, 200);
+                }
+                // Return message with error due to no messages
+                else
+                {
+                    JObject response = JObject.FromObject(new
+                    {
+                        adaQueueError = "NOMESSAGE"
+
+                    });
+                    sendResponse(response, responseObject, 500);
+                }
+
+            }
+            // if queue request is requesting all messages for a target
+            else if (requestJson.GetValue("adaQueueInstruction").ToString() == "LIST")
+            {
+                // Add addition required keys and check they are present
+                requiredKeys.AddRange(new List<string>() { "adaQueueMessageTarget" });
+                if (!containsCorrectKeys(requiredKeys, requestJson))
+                {
+                    sendFail("QUEUE", $"Json did not contain required keys for REQUEST intruction to QUEUE: {string.Join(',', requiredKeys.ToArray())}", responseObject);
+                    return;
+                }
+
+                Message[] returnMessages = Queue.getMessages(requestJson.GetValue("adaQueueMessageTarget").ToString());
+
+                // Return messages back
+                if (returnMessages != null)
+                {
+                    // Convert message contents to list of strings
+                    List<string> messagesContents = new List<string>();
+                    foreach (Message msg in returnMessages)
+                    {
+                        messagesContents.Add(msg.getContent());
+                    }
+
+                    JObject response = JObject.FromObject(new
+                    {
+                        adaQueueMessages = JsonConvert.SerializeObject(messagesContents)
+
+                    });
+                    sendResponse(response, responseObject, 200);
+                }
+                // Return message with error due to no messages
+                else
+                {
+                    JObject response = JObject.FromObject(new
+                    {
+                        adaQueueError = "NOMESSAGES"
+
+                    });
+                    sendResponse(response, responseObject, 500);
                 }
             }
             else
