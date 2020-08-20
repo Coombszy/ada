@@ -60,7 +60,6 @@ namespace ada.rest
             Debugger.Write($"Worker Thread Closing ID:{Thread.CurrentThread.ManagedThreadId}");
         }
 
-
         /// <summary>
         /// Sends a Json object as a response to the http request
         /// </summary>
@@ -94,17 +93,28 @@ namespace ada.rest
         }
 
         /// <summary>
-        /// Sends a Json object containing a fail response
+        /// Sends a Json object containing a fail response and source
         /// </summary>
         /// <param name="failReason"></param>
-        /// <param name="response"></param>
-        private void sendFail(string failReason, HttpListenerResponse response)
+        /// <param name="responseObject"></param>
+        private void sendFail(string failSource, string failReason, HttpListenerResponse responseObject)
         {
             JObject failResponse = JObject.FromObject(new
             {
-                adaQueryStatus = $"FAIL: {failReason}"
+                adaRestSource = $"{failSource}",
+                adaRestResponse = $"{failReason}"
             });
-            sendResponse(failResponse, response, 400);
+            sendResponse(failResponse, responseObject, 400);
+        }
+
+        /// <summary>
+        /// Sends a Json object containing a fail response with generic source
+        /// </summary>
+        /// <param name="failReason"></param>
+        /// <param name="responseObject"></param>
+        private void sendFail(string failReason, HttpListenerResponse responseObject)
+        {
+            sendFail("GENERIC", failReason, responseObject);
         }
 
         /// <summary>
